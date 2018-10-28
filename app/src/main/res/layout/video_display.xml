@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:text="@string/unload_title"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/img_tumbnail"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/txt_title"
+        android:src="@android:color/black"
+        android:contentDescription="@string/cntDesc_thumbnail" />
+
+    <TextView
+        android:id="@+id/txt_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_tumbnail"
+        android:layout_alignRight="@+id/img_tumbnail"
+        android:background="@color/common_google_signin_btn_text_light_default"
+        android:text="@string/unload_duration"
+        android:textColor="@android:color/white"
+        android:layout_alignEnd="@+id/img_tumbnail" />
+
+    <CheckBox
+        android:id="@+id/chk_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/img_tumbnail"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txt_title"
+        android:layout_margin="5dp"
+        android:freezesText="false"
+        android:gravity="center"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/txt_channelTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_title"
+        android:layout_margin="1dp"
+        android:layout_toLeftOf="@+id/chk_selected"
+        android:layout_toRightOf="@+id/img_tumbnail"
+        android:text="@string/unload_channel"
+        android:textStyle="italic"
+        android:layout_toStartOf="@+id/chk_selected"
+        android:layout_toEndOf="@+id/img_tumbnail" />
+
+    <TextView
+        android:id="@+id/txt_publishDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_channelTitle"
+        android:layout_margin="1dp"
+        android:layout_toLeftOf="@+id/chk_selected"
+        android:layout_toRightOf="@+id/img_tumbnail"
+        android:text="@string/unload_publish"
+        android:textStyle="italic"
+        android:layout_toStartOf="@+id/chk_selected"
+        android:layout_toEndOf="@+id/img_tumbnail" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/txt_publishDate"
+        android:layout_toLeftOf="@+id/chk_selected"
+        android:layout_toRightOf="@+id/img_tumbnail"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@color/colorPrimaryDark"
+        android:layout_toStartOf="@+id/chk_selected"
+        android:layout_toEndOf="@+id/img_tumbnail"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/img_tumbnail"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/imageView"
+        android:layout_margin="1dp"
+        android:layout_toLeftOf="@+id/chk_selected"
+        android:layout_toRightOf="@+id/img_tumbnail"
+        android:text="@string/unload_description"
+        android:layout_toStartOf="@+id/chk_selected"
+        android:layout_toEndOf="@+id/img_tumbnail" />
+
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<resources>
+    <!-- app general -->
+    <string name="app_name">Add all to Watch later</string>
+    <string name="permission_contacts">The app will ask permission to show the list of accounts in the device, so you can choose which one to use. You can revoke the permission from android settings after selecting one if you want. If you deny the operation will be canceled.</string>
+
+    <string name="chsr_choose">Choose action</string>
+
+    <!-- Toast -->
+    <string name="toast_noConnection">No network connection available.</string>
+    <string name="toast_playServicesNeeded">This app requires Google Play Services. Please install Google Play Services on your device and relaunch this app.</string>
+    <string name="toast_noVideosFound">No videos found</string>
+    <string name="toast_noLinksFound">No links found</string>
+    <string name="toast_noVideosSelected">No videos selected</string>
+    <string name="toast_status_start">Status:</string>
+    <string name="toast_status_goodPrefix">- Added:\u0020</string>
+    <string name="toast_status_badPrefix">- Not added:\u0020</string>
+    <string name="toast_videosAdded_invalidUrl">Invalid url</string>
+    <string name="toast_accountUnselected">Account unselected</string>
+    <string name="toast_permissionNotGranted">Permission not granted, operation canceled.</string>
+    <string name="toast_congratulations">Congratulations! Now you know how to use this.</string>
+    <string name="toast_internalError">An internal error occurred, try again in a few minutes.</string>
+    <string name="toast_accountUnselectedNone">No account is selected</string>
+    <string name="toast_easterEgg">Wait…did you just…blacklisted The awesome old youtube logo? :(</string>
+
+
+    <!-- settings screen -->
+    <string name="title_description">Description:</string>
+    <string name="txt_description">This app uses Youtube API3 to insert videos into your \'watch later\' personal playlist. The app needs to access your youtube account for this purpose, but no other data is retrieved nor used. The \'GET_ACCOUNTS\' permissions is needed only to show the list of accounts in the device, you can revoke it from android settings after selecting one if you want.</string>
+    <string name="btn_privacyPolicy">Open privacy policy</string>
+    <string name="txt_exampleVideo">This is an example video to test the app (don\'t worry, the video is just an oficial old video of the youtube logo). Double click, or long tap, the textbox to select it, click on share, and click on this app from the list. If your device doesn\'t show the \'share\' option you can click the button to simulate it.</string>
+    <string name="edTxt_exampleVideo">The awesome old youtube logo! https://www.youtube.com/watch?v=Y7dpJ0oseIA</string>
+
+    <string name="title_settings">Settings:</string>
+    <string name="chk_selectByDefault">Videos selected by default</string>
+    <string name="txt_description_selectedByDefault">If this option is checked, videos will be selected by default so simply clicking \'save\' on the dialog will save them all (you can unselect them manually anyway).</string>
+    <string name="txt_description_openLinks">If this toggle is enabled this app will be eligible when clicking youtube links. Then you can either choose to save the video or open it directly on Youtube. (A dialog to choose will always be shown, even if this app is set as the default one).</string>
+    <string name="txt_openLinks">Open youtube links on this app:</string>
+    <string name="txt_description_autoAdd">If after parsing the url the number of videos found is less or equal to the following setting, they will be automatically added instead of asking what to do. Less data will be used, and the process will be faster.</string>
+    <string name="txt_autoAdd">0 videos</string>
+    <string name="txt_description_unselectAccount">Click this button to unselect the selected account (if any).\nWhen using the app if no account is selected it will ask to choose.</string>
+    <string name="txt_description_blackList">Black List: Any link found here will be removed when scanning a page.</string>
+    <string name="txt_hint_blacklist">Write here urls to unwanted videos</string>
+    <string name="btn_resetAccount">Unselect account</string>
+
+
+    <!-- progress indicator -->
+    <string name="progress_loadingUrl">Loading url…\n%s</string>
+    <string name="progress_loadingDetails">%d video links found.\nLoading details…</string>
+    <string name="progress_addingVideo">Adding video %d/%d</string>
+
+
+    <!-- list dialog -->
+    <string name="dialogTitle_chooseVideos">Choose videos to save</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+
+
+    <!-- Youtube API -->
+    <string name="snippetTitle_videoAddedWIth">Video added with \'%s\' app</string>
+
+    <!-- internal -->
+    <string name="cntDesc_thumbnail">Thumbnail</string>
+    <string name="cntDesc_share">share</string>
+    <string name="unload_title">_title_</string>
+    <string name="unload_duration">_duration_</string>
+    <string name="unload_channel">_channelTitle_</string>
+    <string name="unload_publish">_publishDate_</string>
+    <string name="unload_description">_description_</string>
+
+    <!-- unsorted -->
+    <string name="_id_">VHJpYW5ndWxvWSdzIGFwcDogQWRkIGFsbCB0byB3YXRjaCBsYXRlciA=</string>
+</resources>
