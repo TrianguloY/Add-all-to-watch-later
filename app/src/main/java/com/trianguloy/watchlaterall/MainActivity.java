@@ -116,6 +116,7 @@ public class MainActivity extends Activity {
      * @param view wich button
      */
     public void onClick(View view){
+        Intent intent;
         switch (view.getId()){
             case R.id.btn_resetAccount:
                 //reset account button, unselect account
@@ -125,14 +126,19 @@ public class MainActivity extends Activity {
                 break;
             case R.id.btn_privacyPolicy:
                 //privacy policy button, open page
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://triangularapps.blogspot.com/p/add-all-to-watch-later-privacy-policy.html"));
-                startActivity(browserIntent);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://triangularapps.blogspot.com/p/add-all-to-watch-later-privacy-policy.html"));
+                startActivity(intent);
+                break;
+            case R.id.btn_mainPage:
+                //main page button, open page
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://triangularapps.blogspot.com/p/add-all-to-watch-later.html"));
+                startActivity(intent);
                 break;
             case R.id.swt_openLinks:
                 setOpenLinks(((Switch) view).isChecked());
                 break;
             case R.id.btn_share:
-                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.edTxt_exampleVideo));
                 startActivity(Intent.createChooser(intent,getString(R.string.chsr_choose)));

@@ -26,15 +26,33 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_description" />
 
-        <Button
-            android:id="@+id/btn_privacyPolicy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:onClick="onClick"
-            android:text="@string/btn_privacyPolicy"
-            android:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_privacyPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:onClick="onClick"
+                android:text="@string/btn_privacyPolicy"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_mainPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:onClick="onClick"
+                android:text="@string/btn_mainPage"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/smallSeparator3"

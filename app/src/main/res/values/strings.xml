@@ -27,6 +27,7 @@
     <string name="title_description">Description:</string>
     <string name="txt_description">This app uses Youtube API3 to insert videos into your \'watch later\' personal playlist. The app needs to access your youtube account for this purpose, but no other data is retrieved nor used. The \'GET_ACCOUNTS\' permissions is needed only to show the list of accounts in the device, you can revoke it from android settings after selecting one if you want.</string>
     <string name="btn_privacyPolicy">Open privacy policy</string>
+    <string name="btn_mainPage">Open main page</string>
     <string name="txt_exampleVideo">This is an example video to test the app (don\'t worry, the video is just an oficial old video of the youtube logo). Double click, or long tap, the textbox to select it, click on share, and click on this app from the list. If your device doesn\'t show the \'share\' option you can click the button to simulate it.</string>
     <string name="edTxt_exampleVideo">The awesome old youtube logo! https://www.youtube.com/watch?v=Y7dpJ0oseIA</string>
 

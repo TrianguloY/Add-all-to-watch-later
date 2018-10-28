@@ -6,8 +6,8 @@ android {
         applicationId "com.trianguloy.watchlaterall"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.4"
+        versionCode 9
+        versionName "1.5"
 
         resConfigs "en"
     }

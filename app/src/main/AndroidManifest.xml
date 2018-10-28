@@ -27,7 +27,8 @@
         <activity
             android:icon="@mipmap/ic_launcher"
             android:name=".BackgroundActivity"
-            android:theme="@style/Theme.Transparent">
+            android:theme="@style/Theme.Transparent"
+            android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -35,11 +36,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:name=".OpenLinkActivity"
             android:theme="@style/Theme.Transparent"
-            android:enabled="false">
+            android:enabled="false"
+            android:excludeFromRecents="true">
             <intent-filter >
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

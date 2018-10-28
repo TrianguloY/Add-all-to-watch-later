@@ -23,7 +23,6 @@ public class OpenLinkActivity extends Activity {
             if (EXTRA_NAME.equals(intent.getStringExtra(EXTRA_NAME)) || !Utilities.wasLaunchedByDefault(this) ) {
                 //Open the intent
                 openIntent = new Intent(this, BackgroundActivity.class);
-                Log.d("URI", String.valueOf(intent.getData()));
                 if(intent.getData()!=null) {
                     openIntent.putExtra(Intent.EXTRA_TEXT, intent.getData().toString());
                 }
@@ -33,12 +32,11 @@ public class OpenLinkActivity extends Activity {
                 openIntent = new Intent(intent);
                 openIntent.setComponent(null);
                 openIntent.putExtra(EXTRA_NAME, EXTRA_NAME);
+                openIntent.setFlags(openIntent.getFlags() & ~Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(openIntent, getString(R.string.chsr_choose)));
                 Log.d("choose",openIntent.toUri(0));
             }
         }
         finish();
-
-
     }
 }
