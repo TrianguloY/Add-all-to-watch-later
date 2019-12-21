@@ -21,6 +21,7 @@
     <string name="toast_internalError">An internal error occurred, try again in a few minutes.</string>
     <string name="toast_accountUnselectedNone">No account is selected</string>
     <string name="toast_easterEgg">Wait…did you just…blacklisted The awesome old youtube logo? :(</string>
+    <string name="toast_cantOpen">Can\'t open Video</string>
 
 
     <!-- settings screen -->
@@ -46,7 +47,7 @@
 
     <!-- progress indicator -->
     <string name="progress_loadingUrl">Loading url…\n%s</string>
-    <string name="progress_loadingDetails">%d video links found.\nLoading details…</string>
+    <string name="progress_checkingLinks">Checking links found %d/%d</string>
     <string name="progress_addingVideo">Adding video %d/%d</string>
 
 

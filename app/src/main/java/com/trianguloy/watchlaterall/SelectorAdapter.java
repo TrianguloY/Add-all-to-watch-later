@@ -1,7 +1,9 @@
 package com.trianguloy.watchlaterall;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.api.services.youtube.model.Video;
 
@@ -24,13 +27,17 @@ import java.util.List;
  */
 public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer> {
 
+    private final Context cntx;
+
     /**
      * Constructor, populates the array of videos
+     *
      * @param context the context used for context-related things
      * @param videos  list of videos to ppopulate
      */
     SelectorAdapter(Context context, List<Video> videos) {
         super(context, R.layout.video_display, R.id.txt_title, new ArrayList<VideoContainer>(videos.size()));
+        cntx = context;
         for (Video video : videos) {
             //foreach video, adds to the list
             super.add(new VideoContainer(video, new Preferences(context).getDefaultSelection()));
@@ -83,7 +90,20 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
                 }
             });
             imageView.setImageBitmap(item.getThumbnail());
-            publishDate.setText(item.getPublishdate());
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
+                        intent.putExtra("finish_on_ended", true);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        cntx.startActivity(intent);
+                    } catch (ActivityNotFoundException | NullPointerException e) {
+                        Toast.makeText(cntx, R.string.toast_cantOpen, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            publishDate.setText(item.getPublishDate());
             channelTitle.setText(item.getChannelTitle());
             duration.setText(item.getVideoDuration());
         }
@@ -219,7 +239,7 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
          *
          * @return the publication date, dummy string if invalid
          */
-        String getPublishdate() {
+        String getPublishDate() {
             if (video == null) {
                 return INVALID;
             }
@@ -245,7 +265,10 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
             return Utilities.parseDuration(timeString);
         }
 
-
+        String getUrl() {
+            if (video == null) return null;
+            return "https://www.youtube.com/watch?v=" + video.getId();
+        }
     }
 
 }

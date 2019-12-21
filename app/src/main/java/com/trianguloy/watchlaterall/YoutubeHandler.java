@@ -144,9 +144,10 @@ class YoutubeHandler {
         }
 
         //load video information from ids
-        showProgress(R.string.progress_loadingDetails,ids.size());
         List<Video> videos = new ArrayList<>(ids.size());
-        for (String id : ids) {
+        for (int i = 0; i < ids.size(); i++) {
+            String id = ids.get(i);
+            showProgress(R.string.progress_checkingLinks, i+1, ids.size());
             //foreach id, get video
             Video video = getVideoFromId(id);
             if (video != null) {

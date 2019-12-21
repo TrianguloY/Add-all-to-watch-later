@@ -22,10 +22,23 @@
         android:id="@+id/img_tumbnail"
         android:layout_width="160dp"
         android:layout_height="120dp"
-        android:layout_alignParentBottom="false"
         android:layout_below="@+id/txt_title"
-        android:src="@android:color/black"
-        android:contentDescription="@string/cntDesc_thumbnail" />
+        android:layout_alignParentBottom="false"
+        android:contentDescription="@string/cntDesc_thumbnail"
+        android:src="@android:color/black" />
+
+    <ImageView
+        android:id="@+id/img_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/img_tumbnail"
+        android:layout_alignLeft="@id/img_tumbnail"
+        android:layout_alignTop="@id/img_tumbnail"
+        android:layout_alignEnd="@id/img_tumbnail"
+        android:layout_alignRight="@id/img_tumbnail"
+        android:layout_alignBottom="@id/img_tumbnail"
+        android:scaleType="center"
+        android:src="@drawable/ic_play_arrow_black_24dp" />
 
     <TextView
         android:id="@+id/txt_duration"

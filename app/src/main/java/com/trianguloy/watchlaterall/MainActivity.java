@@ -142,6 +142,7 @@ public class MainActivity extends Activity {
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.edTxt_exampleVideo));
                 startActivity(Intent.createChooser(intent,getString(R.string.chsr_choose)));
+                break;
         }
     }
 
