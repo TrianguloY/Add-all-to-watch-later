@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
 
 /**
  * Class that handles the getAccounts Permissions of the app
@@ -69,7 +68,7 @@ class PermissionsManager {
      * @param grantResults should be GRANTED
      * @return true if the user accepted, false otherwise
      */
-    boolean continueOnRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    boolean continueOnRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         return requestCode == BackgroundActivity.REQUEST_PERMISSION_GET_ACCOUNTS
                 && Manifest.permission.GET_ACCOUNTS.equals(permissions[0])
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED

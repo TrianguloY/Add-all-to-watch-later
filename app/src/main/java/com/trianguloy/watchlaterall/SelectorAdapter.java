@@ -4,8 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,9 +27,9 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
     /**
      * Constructor, populates the array of videos
      * @param context the context used for context-related things
-     * @param videos list of videos to ppopulate
+     * @param videos  list of videos to ppopulate
      */
-    SelectorAdapter(@NonNull Context context, @NonNull List<Video> videos) {
+    SelectorAdapter(Context context, List<Video> videos) {
         super(context, R.layout.video_display, R.id.txt_title, new ArrayList<VideoContainer>(videos.size()));
         for (Video video : videos) {
             //foreach video, adds to the list
@@ -41,14 +40,14 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
 
     /**
      * Returns the corresponding populated video view
-     * @param position to super
+     *
+     * @param position    to super
      * @param convertView to super
-     * @param parent to super
+     * @param parent      to super
      * @return the populated view
      */
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         //get views
         View view = super.getView(position, convertView, parent);
@@ -63,7 +62,7 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
         //get video
         final VideoContainer item = getItem(position);
 
-        if(item!=null) {
+        if (item != null) {
             //populate views
             textView.setText(item.getTitle());
             checkBox.setChecked(item.isSelected());
@@ -96,15 +95,17 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
 
     /**
      * Toggles the selected state of the item at the specified position
+     *
      * @param position position of the item to toggle
      */
-    void toggleItem(int position){
+    void toggleItem(int position) {
         VideoContainer item = getItem(position);
-        if(item!=null) item.toggleSelected();
+        if (item != null) item.toggleSelected();
     }
 
     /**
      * Returns a list of the selected video Ids
+     *
      * @return list of selected video ids
      */
     List<String> getSelectedVideos() {
@@ -114,7 +115,7 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
         for (int i = 0; i < getCount(); i++) {
             VideoContainer item = getItem(i);
             //foreach item, check selected
-            if(item!=null && item.isSelected()){
+            if (item != null && item.isSelected()) {
                 //if selected, add
                 ids.add(item.getId());
             }
@@ -128,7 +129,7 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
      * Internal class to save each element of the list.
      * A video, the selected state, and the thumbnail
      */
-    static class VideoContainer{
+    static class VideoContainer {
 
         static final String INVALID = "---";
 
@@ -140,7 +141,8 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
         /**
          * Constructor, fills the data with the provided input
          * IMPORTANT: makes an internet connection to retrieve the thumbnail of the video
-         * @param video the base video
+         *
+         * @param video    the base video
          * @param selected the default selected state
          */
         VideoContainer(Video video, boolean selected) {
@@ -150,42 +152,46 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
             try {
                 //gets the thumbnail of the video, and saves it
                 this.thumbnail = Utilities.getImageFromUrl(video.getSnippet().getThumbnails().getDefault().getUrl());
-            }catch (Exception e){
+            } catch (Exception e) {
                 //error while retrieving the thumbnail, set a dummy thumbnail
                 int[] colors = new int[12];
                 for (int i = 0; i < 12; i++) {
-                    colors[i] = i==0 || i==3 ? Color.GRAY : Color.BLACK;
+                    colors[i] = i == 0 || i == 3 ? Color.GRAY : Color.BLACK;
                 }
-                this.thumbnail = Bitmap.createBitmap( colors ,4,3, Bitmap.Config.ALPHA_8);
+                this.thumbnail = Bitmap.createBitmap(colors, 4, 3, Bitmap.Config.ALPHA_8);
             }
         }
 
         /**
          * Returns the title of the video
+         *
          * @return the title, dummy string if invalid
          */
         String getTitle() {
-            return video==null ? INVALID : video.getSnippet().getTitle();
+            return video == null ? INVALID : video.getSnippet().getTitle();
         }
 
         /**
          * Returns the id of the video
+         *
          * @return id of the video, null if invalid
          */
-        String getId(){
-            return video==null ? null : video.getId();
+        String getId() {
+            return video == null ? null : video.getId();
         }
 
         /**
          * Returns the description of the video
+         *
          * @return the description, dummy string if invalid
          */
-        String getDescription(){
-            return video==null ? INVALID : video.getSnippet().getDescription();
+        String getDescription() {
+            return video == null ? INVALID : video.getSnippet().getDescription();
         }
 
         /**
          * Returns the selected state of the video
+         *
          * @return true if selected, false otherwise
          */
         boolean isSelected() {
@@ -201,6 +207,7 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
 
         /**
          * Returns the thumbnail of the video
+         *
          * @return the thumbnail
          */
         Bitmap getThumbnail() {
@@ -209,10 +216,11 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
 
         /**
          * Returns the publication date, in the device format
+         *
          * @return the publication date, dummy string if invalid
          */
-        String getPublishdate(){
-            if (video == null){
+        String getPublishdate() {
+            if (video == null) {
                 return INVALID;
             }
 
@@ -223,15 +231,15 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
 
         /**
          * Returns the channel title
+         *
          * @return the channel title, dummy string if invalid
          */
-        String getChannelTitle(){
-            return video == null? INVALID : video.getSnippet().getChannelTitle();
+        String getChannelTitle() {
+            return video == null ? INVALID : video.getSnippet().getChannelTitle();
         }
 
-        String getVideoDuration(){
+        String getVideoDuration() {
             if (video == null) return INVALID;
-
 
             String timeString = video.getContentDetails().getDuration();
             return Utilities.parseDuration(timeString);

@@ -149,7 +149,7 @@ class YoutubeHandler {
         for (String id : ids) {
             //foreach id, get video
             Video video = getVideoFromId(id);
-            if(video!=null){
+            if (video != null) {
                 //if valid video, add to the list
                 videos.add(video);
             }

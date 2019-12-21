@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -160,7 +159,7 @@ public class BackgroundActivity extends Activity {
      * @param grantResults passed to api
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if ( permissionManager.continueOnRequestPermissionsResult(requestCode, permissions, grantResults) ){
             //everything is correct, retry choosing account

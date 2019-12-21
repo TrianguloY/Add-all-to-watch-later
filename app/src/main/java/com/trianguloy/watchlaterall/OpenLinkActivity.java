@@ -3,7 +3,6 @@ package com.trianguloy.watchlaterall;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
@@ -13,7 +12,7 @@ public class OpenLinkActivity extends Activity {
     private static final String EXTRA_NAME = "ADD_ALL_TO_WATCH_LATER";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
