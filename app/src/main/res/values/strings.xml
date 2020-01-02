@@ -55,6 +55,7 @@
     <string name="dialogTitle_chooseVideos">Choose videos to save</string>
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
+    <string name="btn_share">Share</string>
 
 
     <!-- Youtube API -->

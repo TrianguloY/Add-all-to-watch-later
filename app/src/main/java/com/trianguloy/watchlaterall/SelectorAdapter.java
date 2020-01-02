@@ -1,19 +1,15 @@
 package com.trianguloy.watchlaterall;
 
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.api.services.youtube.model.Video;
 
@@ -58,10 +54,10 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
 
         //get views
         View view = super.getView(position, convertView, parent);
-        CheckBox checkBox = view.findViewById(R.id.chk_selected);
-        TextView textView = view.findViewById(R.id.txt_title);
+        CheckBox selected = view.findViewById(R.id.chk_selected);
+        TextView title = view.findViewById(R.id.txt_title);
         TextView description = view.findViewById(R.id.txt_description);
-        ImageView imageView = view.findViewById(R.id.img_tumbnail);
+        ImageView thumbnail = view.findViewById(R.id.img_tumbnail);
         TextView publishDate = view.findViewById(R.id.txt_publishDate);
         TextView channelTitle = view.findViewById(R.id.txt_channelTitle);
         TextView duration = view.findViewById(R.id.txt_duration);
@@ -71,9 +67,9 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
 
         if (item != null) {
             //populate views
-            textView.setText(item.getTitle());
-            checkBox.setChecked(item.isSelected());
-            checkBox.setOnClickListener(new View.OnClickListener() {
+            title.setText(item.getTitle());
+            selected.setChecked(item.isSelected());
+            selected.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     item.toggleSelected();
@@ -89,18 +85,11 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
                             .show();
                 }
             });
-            imageView.setImageBitmap(item.getThumbnail());
-            imageView.setOnClickListener(new View.OnClickListener() {
+            thumbnail.setImageBitmap(item.getThumbnail());
+            thumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
-                        intent.putExtra("finish_on_ended", true);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        cntx.startActivity(intent);
-                    } catch (ActivityNotFoundException | NullPointerException e) {
-                        Toast.makeText(cntx, R.string.toast_cantOpen, Toast.LENGTH_SHORT).show();
-                    }
+                    Utilities.openInYoutube(item.getUrl(), cntx);
                 }
             });
             publishDate.setText(item.getPublishDate());
@@ -128,20 +117,20 @@ public class SelectorAdapter extends ArrayAdapter<SelectorAdapter.VideoContainer
      *
      * @return list of selected video ids
      */
-    List<String> getSelectedVideos() {
+    List<VideoContainer> getSelectedVideos() {
 
-        List<String> ids = new ArrayList<>();
+        List<VideoContainer> videos = new ArrayList<>();
 
         for (int i = 0; i < getCount(); i++) {
             VideoContainer item = getItem(i);
             //foreach item, check selected
             if (item != null && item.isSelected()) {
                 //if selected, add
-                ids.add(item.getId());
+                videos.add(item);
             }
 
         }
-        return ids;
+        return videos;
     }
 
 

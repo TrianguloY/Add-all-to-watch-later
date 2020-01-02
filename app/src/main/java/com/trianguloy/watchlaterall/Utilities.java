@@ -1,12 +1,16 @@
 package com.trianguloy.watchlaterall;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,6 +33,7 @@ class Utilities {
 
     /**
      * Returns the text of the intent, if any
+     *
      * @param intent intent to check
      * @return text of the intent, null if none
      */
@@ -42,16 +47,17 @@ class Utilities {
 
     /**
      * Returns the ids of the videos found by extracting youtube urls from the given text
+     *
      * @param HTMLPage the string where to search
      * @return a list with all the different ids found
      */
-    static List<String> getIdsFromText(String HTMLPage){
+    static List<String> getIdsFromText(String HTMLPage) {
         Matcher pageMatcher = pattern_youtubeLinks.matcher(HTMLPage);
         ArrayList<String> links = new ArrayList<>();
-        while(pageMatcher.find()){
+        while (pageMatcher.find()) {
             //foreach link found, extract id
             String id = pageMatcher.group(1);
-            if(!links.contains(id)){
+            if (!links.contains(id)) {
                 //if not already present, add to the list
                 links.add(id);
             }
@@ -61,10 +67,11 @@ class Utilities {
 
     /**
      * Returns the HTML of the url page, following ALL redirects (even HTTP<->HTTPS)
+     *
      * @param url the url of the page
      * @return the HTML of the url (or redirect)
      */
-    static String getHTMLFromUrl(String url){
+    static String getHTMLFromUrl(String url) {
         HttpURLConnection conn = null;
         int redirects = 100;
         try {
@@ -101,12 +108,12 @@ class Utilities {
 
         } catch (IOException e) {
             //error while finding page
-            Log.d("error",e.getMessage());
+            Log.d("error", e.getMessage());
             e.printStackTrace();
             return "";
-        }finally {
+        } finally {
             //close connection
-            if(conn!=null) {
+            if (conn != null) {
                 conn.disconnect();
             }
         }
@@ -118,16 +125,17 @@ class Utilities {
 
     /**
      * Returns the list of html pages (urls) found in the given text
+     *
      * @param text the text where to search
      * @return the list of distinct url founds
      */
-    static List<String> getUrlsFromText(String text){
+    static List<String> getUrlsFromText(String text) {
         Matcher matcher = pattern_urls.matcher(text);
         List<String> urls = new ArrayList<>();
-        while(matcher.find()){
+        while (matcher.find()) {
             //if url found, get
             String url = matcher.group(2);
-            if(!urls.contains(url)){
+            if (!urls.contains(url)) {
                 //if not already present, add
                 urls.add(url);
             }
@@ -137,6 +145,7 @@ class Utilities {
 
     /**
      * Returns the Bitmap of the image from its url
+     *
      * @param url the url of the image
      * @return the Bitmap image, null if couldn't get or not an image
      */
@@ -145,10 +154,10 @@ class Utilities {
         try {
             in = new URL(url).openStream();
             return BitmapFactory.decodeStream(in);
-        }catch (IOException e){
+        } catch (IOException e) {
             return null;
-        }finally {
-            if (in!=null){
+        } finally {
+            if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
@@ -166,12 +175,12 @@ class Utilities {
     }
 
 
-    public static String parseDuration(String duration_string){
+    public static String parseDuration(String duration_string) {
         String time = duration_string.substring(2);
         StringBuilder duration = new StringBuilder();
 
         int h_index = time.indexOf("H");
-        if (h_index != -1){
+        if (h_index != -1) {
             String h_value = time.substring(0, h_index);
             duration.append(h_value)
                     .append(":");
@@ -179,29 +188,52 @@ class Utilities {
         }
 
         int m_index = time.indexOf("M");
-        if(m_index != -1) {
+        if (m_index != -1) {
             String m_value = time.substring(0, m_index);
-            if (m_value.length() < 2){
+            if (m_value.length() < 2) {
                 duration.append("0");
             }
             duration.append(m_value)
                     .append(":");
             time = time.substring(m_value.length() + 1);
-        }else{
+        } else {
             duration.append("00:");
         }
 
         int s_index = time.indexOf("S");
-        if (s_index != -1){
+        if (s_index != -1) {
             String s_value = time.substring(0, s_index);
-            if (s_value.length() < 2){
+            if (s_value.length() < 2) {
                 duration.append("0");
             }
             duration.append(s_value);
-        }else{
+        } else {
             duration.append("00");
         }
 
         return duration.toString();
+    }
+
+    static void openInYoutube(String url, Context cntx) {
+        // TODO custom list without showing this app
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.putExtra("finish_on_ended", true);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            cntx.startActivity(intent);
+        } catch (ActivityNotFoundException | NullPointerException e) {
+            Toast.makeText(cntx, R.string.toast_cantOpen, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    static void share(String text, Context cntx) {
+        try {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+            cntx.startActivity(Intent.createChooser(sharingIntent, cntx.getResources().getString(R.string.cntDesc_share)));
+        } catch (ActivityNotFoundException | NullPointerException e) {
+            Toast.makeText(cntx, R.string.toast_cantOpen, Toast.LENGTH_SHORT).show();
+        }
     }
 }

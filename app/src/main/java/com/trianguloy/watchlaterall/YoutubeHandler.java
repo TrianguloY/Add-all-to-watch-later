@@ -139,7 +139,7 @@ class YoutubeHandler {
         //auto add
         if (ids.size() <= prefs.getAutoAdd()){
             hideProgress(false);
-            _onChoosed(ids);
+            _onChoosed_add(ids);
             return;
         }
 
@@ -171,7 +171,7 @@ class YoutubeHandler {
             for (Video video : videos) {
                 ids.add(video.getId());
             }
-            _onChoosed(ids);
+            _onChoosed_add(ids);
             return;
         }
 
@@ -188,13 +188,19 @@ class YoutubeHandler {
         dialog.setPositiveButton(R.string.button_save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                onChoosed(selectorAdapter.getSelectedVideos());
+                onChoosed(selectorAdapter.getSelectedVideos(), false);
             }
         });
         dialog.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
+            }
+        });
+        dialog.setNeutralButton(R.string.btn_share, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onChoosed(selectorAdapter.getSelectedVideos(), true);
             }
         });
         dialog.setCancelable(false);
@@ -220,51 +226,80 @@ class YoutubeHandler {
      * Phase 3.1: in the foreground, starts a background task and ends inmediately
      * @param ids passed to phase 3.2
      */
-    private void onChoosed(final List<String> ids){
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                _onChoosed(ids);
-            }
-        });
-    }
-
-    /**
-     * Phase 3.2: in the background, adds the selected videos to the playlist
-     * @param ids the selected videos to add
-     */
-    private void _onChoosed(List<String> ids){
+    private void onChoosed(final List<SelectorAdapter.VideoContainer> ids, boolean share){
         if(ids.isEmpty()){
             //no videos added, notify
             showToast(R.string.toast_noVideosSelected);
-        }else{
-            //videos added, add to playlist
-            StringBuilder output = new StringBuilder(mainActivity.getString(R.string.toast_status_start));
-            for (int i = 0; i < ids.size(); i++) {
-                String id = ids.get(i);
-                //foreach video id, notify and add
-                output.append("\n");
-                try {
-                    showProgress(R.string.progress_addingVideo, i + 1, ids.size());
-                    String name = insertPlaylistItem(id);
-                    output.append(mainActivity.getString(R.string.toast_status_goodPrefix))
-                            .append(name);
-                } catch (GoogleJsonResponseException e){
-                    //error while adding video, add to errors
-                    output.append(mainActivity.getString(R.string.toast_status_badPrefix))
-                            .append(e.getDetails().getMessage());
-                } catch (IOException e) {
-                    //error while adding video, add to errors
-                    output.append(mainActivity.getString(R.string.toast_status_badPrefix))
-                            .append(e.getMessage());
-                }
-            }
-            hideProgress(false);
-            showToast(output.toString());
+            finish();
         }
-        finish();
+        if(share){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    _onChoosed_share(ids);
+                }
+            });
+        }else {
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    _onChoosed_add(ids);
+                }
+            });
+        }
     }
 
+    /**
+     * Phase 3.2.A: in the background, adds the selected videos to the playlist
+     * @param ids the selected videos to add
+     */
+    private void _onChoosed_add(List<?> ids){
+        //videos added, add to playlist
+        StringBuilder output = new StringBuilder(mainActivity.getString(R.string.toast_status_start));
+        for (int i = 0; i < ids.size(); i++) {
+            Object id_raw = ids.get(i);
+            String id = id_raw.getClass().equals(SelectorAdapter.VideoContainer.class) ? ((SelectorAdapter.VideoContainer) id_raw).getId() : id_raw.toString();
+            //foreach video id, notify and add
+            output.append("\n");
+            try {
+                showProgress(R.string.progress_addingVideo, i + 1, ids.size());
+                String name = insertPlaylistItem(id);
+                output.append(mainActivity.getString(R.string.toast_status_goodPrefix))
+                        .append(name);
+            } catch (GoogleJsonResponseException e){
+                //error while adding video, add to errors
+                output.append(mainActivity.getString(R.string.toast_status_badPrefix))
+                        .append(e.getDetails().getMessage());
+            } catch (IOException e) {
+                //error while adding video, add to errors
+                output.append(mainActivity.getString(R.string.toast_status_badPrefix))
+                        .append(e.getMessage());
+            }
+        }
+        hideProgress(false);
+        showToast(output.toString());
+        finish();
+    }
+    /**
+     * Phase 3.2.B: in the background, shares the selected videos
+     * @param ids the selected videos to share
+     */
+    private void _onChoosed_share(List<SelectorAdapter.VideoContainer> ids) {
+        //videos added, add to playlist
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < ids.size(); i++) {
+            SelectorAdapter.VideoContainer video = ids.get(i);
+            if(i!=0){
+                output.append("\n\n");
+            }
+            output.append(video.getTitle())
+                    .append("\n")
+                    .append(video.getUrl());
+        }
+        hideProgress(false);
+        Utilities.share(output.toString(),mainActivity);
+        finish();
+    }
     /**
      * An error ocurred, try to recover or exit
      * @param error the error
