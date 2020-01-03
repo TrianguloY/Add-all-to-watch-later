@@ -35,7 +35,7 @@
     <string name="title_settings">Settings:</string>
     <string name="chk_selectByDefault">Videos selected by default</string>
     <string name="txt_description_selectedByDefault">If this option is checked, videos will be selected by default so simply clicking \'save\' on the dialog will save them all (you can unselect them manually anyway).</string>
-    <string name="txt_description_openLinks">If this toggle is enabled this app will be eligible when clicking youtube links. Then you can either choose to save the video or open it directly on Youtube. (A dialog to choose will always be shown, even if this app is set as the default one).</string>
+    <string name="txt_description_openLinks">If this toggle is enabled this app will be eligible when clicking youtube links. Then you can either choose to save the video or open it directly on Youtube. (A dialog to choose will always be shown, even if this app is set as the default one).\nNote: you may need to open the app settings and set the option to open links by default to true, otherwise it may not appear.</string>
     <string name="txt_openLinks">Open youtube links on this app:</string>
     <string name="txt_description_autoAdd">If after parsing the url the number of videos found is less or equal to the following setting, they will be automatically added instead of asking what to do. Less data will be used, and the process will be faster.</string>
     <string name="txt_autoAdd">0 videos</string>

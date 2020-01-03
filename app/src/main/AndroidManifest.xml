@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.trianguloy.watchlaterall">
+    package="com.trianguloy.watchlaterall"
+    android:versionCode="10"
+    android:versionName="1.6">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
-    <!-- Bug in play services 120.0.0, remove when fixed
-    <uses-permission
-        android:name="android.permission.READ_PHONE_STATE"
-        tools:node="remove" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:node="remove" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        tools:node="remove" />
-    -->
-
     <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor">
+        android:supportsRtl="true">
         <activity
-            android:icon="@mipmap/ic_launcher"
             android:name=".BackgroundActivity"
-            android:theme="@style/Theme.Transparent"
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="true"
+            android:icon="@mipmap/ic_launcher"
+            android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -36,15 +26,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:icon="@mipmap/ic_launcher"
             android:name=".OpenLinkActivity"
-            android:theme="@style/Theme.Transparent"
             android:enabled="false"
-            android:excludeFromRecents="true">
-            <intent-filter >
+            android:excludeFromRecents="true"
+            android:icon="@mipmap/ic_launcher"
+            android:theme="@style/Theme.Transparent">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="youtube.com" />
